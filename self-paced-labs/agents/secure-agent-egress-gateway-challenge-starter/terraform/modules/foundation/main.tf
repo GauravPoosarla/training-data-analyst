@@ -64,6 +64,14 @@ resource "google_project_service_identity" "aiplatform" {
   depends_on = [google_project_service.aiplatform]
 }
 
+# The Vertex AI service agent needs to be able to get/read Agent Gateway resources
+# when deploying agents configured with egress gateways.
+resource "google_project_iam_member" "aiplatform_networkservices_viewer" {
+  project = module.project.project_id
+  role    = "roles/networkservices.viewer"
+  member  = "serviceAccount:${google_project_service_identity.aiplatform.email}"
+}
+
 resource "google_project_iam_member" "aiplatform_network_admin" {
   count   = var.enable_psc_interface ? 1 : 0
   project = module.project.project_id
