@@ -549,7 +549,7 @@ def main() -> None:
                 # (a2a) or
                 # `No module named google.cloud.iamconnectorcredentials_v1alpha`.
                 # Keep aligned with pyproject.toml.
-                "google-adk[a2a,agent-identity]==1.34.0",
+                "google-adk[a2a,agent-identity]>=1.34.0,<2.0.0",
                 "google-auth>=2.0",
                 "cloudpickle",
                 "pydantic",
