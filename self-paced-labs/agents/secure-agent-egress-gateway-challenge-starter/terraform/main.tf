@@ -591,6 +591,14 @@ resource "google_network_services_agent_gateway" "agent-egress-gateway" {
     # TODO: Set the governed access path mode to route traffic correctly
     governed_access_path = "FILL_ME_IN"
   }
+  dynamic "network_config" {
+    for_each = module.networking.psc_interface_network_attachment_id != null ? [1] : []
+    content {
+      egress {
+        network_attachment = module.networking.psc_interface_network_attachment_id
+      }
+    }
+  }
 }
 
 /*
